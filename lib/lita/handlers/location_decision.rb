@@ -2,32 +2,33 @@ require "lita"
 
 module Lita
   module Handlers
-    HELP_TEXT={
-        "remember <location> in <group>" => "store a location in a group",
-        "forget <location> in <group>"  => "forget a location in a group",
-        "wipe all in <group>"          => "wipe all locations in a group",
-        "list all for <group>"           => "list all locations in a group",
-        "pick from <group>"              => "randomly pick from all locations in a group"
 
-    }
     # Provides a location decision helper
     class LocationDecision < Handler
 
       route %r{^(?:remember|store|save)\s+(.+)\s+(?:in|for)\s+(.+)\s*$}i,
         :remember_location, command: true,
-        help: HELP_TEXT
+        help: {"remember <location> in <group>" => "store a location in a group"}
 
       route %r{^(?:wipe|erase|empty)\s+all\s+(?:in|for)\s+(.+)\s*$}i,
-            :forget_all_locations, command: true
+            :forget_all_locations, command: true,
+            help: {"wipe all in <group>" => "wipe all locations in a group",}
+
 
       route %r{^(?:forget|del|delete|rm)\s+(.+)\s+(?:in|for)\s+(.+)\s*$}i,
-        :forget_location, command: true
+        :forget_location, command: true,
+        help: {"forget <location> in <group>" => "forget a location in a group"}
+
 
       route %r{^(?:list|show|ls)\s+(?:all\s+)?(?:in|for|from)\s+(.+)\s*$}i,
-        :list_locations, command: true
+        :list_locations, command: true,
+        help: { "list all for <group>" => "list all locations in a group",}
+
 
       route %r{^(?:pick|choose|rand|random|select)\s+(?:in|for|from)\s+(.+)\s*$}i,
-        :choose_location, command: true
+        :choose_location, command: true,
+        help: { "pick from <group>" => "randomly pick from all locations in a group"}
+
 
       def remember_location(response)
         location = response.matches[0][0]
