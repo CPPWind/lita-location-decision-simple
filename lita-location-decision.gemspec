@@ -1,11 +1,11 @@
 Gem::Specification.new do |spec|
-  spec.name          = "lita-location-decision"
-  spec.version       = "0.0.3"
-  spec.authors       = ["Mitch Dempsey"]
-  spec.email         = ["mrdempsey@gmail.com"]
+  spec.name          = "lita-location-decision-simple"
+  spec.version       = "0.0.1"
+  spec.authors       = ["Mitch Dempsey","Scott M Parrish"]
+  spec.email         = ["mrdempsey@gmail.com", "anithri@gmail.com"]
   spec.description   = %q{A Lita handler for making decisions about places to go}
   spec.summary       = %q{A Lita handler for making decisions about places to go}
-  spec.homepage      = "https://github.com/webdestroya/lita-location-decision"
+  spec.homepage      = "https://github.com/CPPWind/lita-location-decision-simple"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)

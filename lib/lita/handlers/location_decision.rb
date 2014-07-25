@@ -2,34 +2,41 @@ require "lita"
 
 module Lita
   module Handlers
+    HELP_TEXT={
+        "remember <location> in <group>" => "store a location in a group",
+        "forget <location> in <group>"  => "forget a location in a group",
+        "wipe all in <group>"          => "wipe all locations in a group",
+        "list all for <group>"           => "list all locations in a group",
+        "pick from <group>"              => "randomly pick from all locations in a group"
 
+    }
     # Provides a location decision helper
     class LocationDecision < Handler
 
-      route %r{^remember\s+(.+)\s+as a(?:|n)\s+(.+)\s+location\s*$}i,
+      route %r{^(?:remember|store|save)\s+(.+)\s+(?:in|for)\s+(.+)\s*$}i,
         :remember_location, command: true,
-        help: {"location-decision" => "For instructions on using the location decision plugin, refer to: https://github.com/webdestroya/lita-location-decision"}
+        help: HELP_TEXT
 
-      route %r{^forget\s+(.+)\s+as a(?:|n)\s+(.+)\s+location\s*$}i,
+      route %r{^(?:wipe|erase|empty)\s+all\s+(?:in|for)\s+(.+)\s*$}i,
+            :forget_all_locations, command: true
+
+      route %r{^(?:forget|del|delete|rm)\s+(.+)\s+(?:in|for)\s+(.+)\s*$}i,
         :forget_location, command: true
 
-      route %r{^forget\s+all\s+locations\s+for\s+(.+)\s*$}i,
-        :forget_all_locations, command: true
-
-      route %r{^forget\s+all\s+(.+)\s+locations\s*$}i,
-        :forget_all_locations, command: true
-
-      route %r{^where\s+can\s+(?:.+)\s+go\s+for\s+(.+?)\s*(?:|\?)\s*$}i,
+      route %r{^(?:list|show|ls)\s+(?:all\s+)?(?:in|for|from)\s+(.+)\s*$}i,
         :list_locations, command: true
 
-      route %r{^where\s+should\s+(?:.+)\s+go\s+for\s+(.+?)\s*(?:|\?)\s*$}i,
+      route %r{^(?:pick|choose|rand|random|select)\s+(?:in|for|from)\s+(.+)\s*$}i,
         :choose_location, command: true
-
-
 
       def remember_location(response)
         location = response.matches[0][0]
         group = response.matches[0][1]
+
+        if location == 'all'
+          response.reply "can't store a location called \"all\""
+          return true
+        end
 
         locations = get_locations(group)
 
@@ -62,14 +69,14 @@ module Lita
 
       def forget_all_locations(response)
         group = response.matches[0][0]
-
-        count = redis.del("location-decision:#{group}")
-
-        if count == 1
+        locations = get_locations(group)
+        if locations
+          redis.del("location-decision:#{group}")
           response.reply "I have removed all #{group} locations."
         else
-          response.reply "I do not know about any #{group} locations."
+          response.reply no_locations(group)
         end
+
       end
 
       def list_locations(response)
@@ -79,10 +86,10 @@ module Lita
 
         if locations.nil?
           response.reply no_locations(group)
-          return
+        else
+          response.reply "I know about the following #{group} locations: #{locations.join(', ')}"
         end
 
-        response.reply "I know about the following #{group} locations: #{locations.join(', ')}"
       end
 
       def choose_location(response)
@@ -92,12 +99,10 @@ module Lita
 
         if locations.nil?
           response.reply no_locations(group)
-          return
+        else
+          location = locations.shuffle.first
+          response.reply "I think you should go to #{location} for #{group}."
         end
-
-        location = locations.shuffle.first
-
-        response.reply "I think you should go to #{location} for #{group}."
       end
 
       private
