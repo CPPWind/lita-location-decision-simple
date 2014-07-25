@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Lita::Handlers::LocationDecision, lita_handler: true do
+describe Lita::Handlers::LocationDecisionSimple, lita_handler: true do
   it { routes_command("remember taco bell for lunch").to(:remember_location) }
   it { routes_command("remember taco bell in lunch").to(:remember_location) }
   it { routes_command("store taco bell for lunch").to(:remember_location) }

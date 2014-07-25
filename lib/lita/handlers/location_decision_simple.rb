@@ -4,7 +4,7 @@ module Lita
   module Handlers
 
     # Provides a location decision helper
-    class LocationDecision < Handler
+    class LocationDecisionSimple < Handler
 
       route %r{^(?:remember|store|save)\s+(.+)\s+(?:in|for)\s+(.+)\s*$}i,
         :remember_location, command: true,
@@ -128,6 +128,6 @@ module Lita
 
     end
 
-    Lita.register_handler(LocationDecision)
+    Lita.register_handler(LocationDecisionSimple)
   end
 end

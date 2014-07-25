@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name          = "lita-location-decision-simple"
-  spec.version       = "0.0.3"
+  spec.version       = File.read("VERSION")
   spec.authors       = ["Mitch Dempsey","Scott M Parrish"]
   spec.email         = ["mrdempsey@gmail.com", "anithri@gmail.com"]
   spec.description   = %q{A Lita handler for making decisions about places to go}

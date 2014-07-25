@@ -6,5 +6,5 @@ SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
 ]
 SimpleCov.start { add_filter "/spec/" }
 
-require "lita-location-decision"
+require "lita-location-decision-simple"
 require "lita/rspec"
