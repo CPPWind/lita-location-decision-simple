@@ -1,9 +1,10 @@
 # lita-location-decision-simple
 
 
-[![Build Status](https://travis-ci.org/anithri/lita-location-decision-simple?branch=master)](https://travis-ci.org/jimmycuadra/lita-google-images)
-[![Code Climate](https://codeclimate.com/github/anithri/lita-location-decision-simple)](https://codeclimate.com/github/jimmycuadra/lita-google-images)
-[![Coverage Status](https://coveralls.io/repos/anithri/lita-location-decision-simple/badge.png)](https://coveralls.io/r/jimmycuadra/lita-google-images)
+[![Build Status](https://travis-ci.org/anithri/lita-location-decision-simple?branch=master)](https://travis-ci.org/anithri/lita-location-decision-simple)
+[![Code Climate](https://codeclimate.com/github/anithri/lita-location-decision-simple)](https://codeclimate.com/github/anithri/lita-location-decision-simple)
+[![Coverage Status](https://coveralls.io/repos/anithri/lita-location-decision-simple/badge.png)](https://coveralls.io/r/anithri/lita-location-decision-simple
+)
 
 **lita-location-decision-simple** is a handler for [Lita](https://github.com/jimmycuadra/lita) that helps you make a
 decision about places to go.
