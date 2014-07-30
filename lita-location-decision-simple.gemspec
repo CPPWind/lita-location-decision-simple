@@ -5,7 +5,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["mrdempsey@gmail.com", "anithri@gmail.com"]
   spec.description   = %q{A Lita handler for making decisions about places to go}
   spec.summary       = %q{A Lita handler for making decisions about places to go}
-  spec.homepage      = "https://github.com/CPPWind/lita-location-decision-simple"
+  spec.homepage      = "https://github.com/anithri/lita-location-decision-simple"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
